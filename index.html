@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página San Valentín</title>
+  <style>
+    body {
+      background-color: #000022;
+      background-image: url('img/no.jpg');
+      background-size: cover;
+      background-position: center;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .screen {
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .visible {
+      display: flex;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .button {
+      padding: 12px 25px;
+      font-size: 1.5em;
+      background-color: #ff6699;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+      width: 80%;
+      max-width: 300px;
+    }
+
+    .button:hover {
+      transform: scale(1.1);
+    }
+
+    #countdown {
+      font-size: 1.8em;
+      background: rgba(255, 105, 180, 0.9);
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px pink;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 2em;
+      animation: fall 4s linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5em;
+      }
+      .button {
+        font-size: 1.2em;
+        padding: 10px 20px;
+      }
+      #countdown {
+        font-size: 1.4em;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="backgroundMusic" autoplay loop>
+    <source src="music/wwd.mp3juice.blog - Dayglow - Can I Call You Tonight [Sub-Español].mp3" type="audio/mp3">
+    Tu navegador no soporta el audio.
+  </audio>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      let audio = document.getElementById("backgroundMusic");
+  
+      // Intenta reproducir el audio automáticamente
+      audio.play().catch(error => {
+        console.log("La reproducción automática fue bloqueada. Se requiere interacción del usuario.");
+      });
+  
+      // Si el navegador bloquea la reproducción, se reproducirá al hacer clic en la página
+      document.body.addEventListener("click", function () {
+        if (audio.paused) {
+          audio.play();
+        }
+      }, { once: true }); // Solo ejecutará la acción una vez
+    });
+  </script>
+  
+  <!-- Cuenta regresiva -->
+  <div id="countdown"></div>
+
+  <!-- Pantalla 1 -->
+  <div id="screen1" class="screen">
+    <h1>¿Quieres una vida inolvidable?</h1>
+    <div class="button-container">
+      <button class="button" onclick="goToSecondScreen()">Sí</button>
+      <button class="button" id="noButton" onclick="moveButton()">No</button>
+    </div>
+  </div>
+
+  <!-- Pantalla 2 -->
+  <div id="screen2" class="screen">
+    <h1>Bienvenida a la segunda pantalla</h1>
+    <p>Aquí comienza la siguiente parte...</p>
+  </div>
+
+  <script>
+    let noClicks = 0;
+
+    function updateCountdown() {
+      const releaseDate = new Date("February 14, 2025 00:00:00").getTime();
+      const now = new Date().getTime();
+      const difference = releaseDate - now;
+
+      if (difference <= 0) {
+        document.getElementById('countdown').style.display = 'none';
+        document.getElementById('screen1').classList.add('visible');
+      } else {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerHTML = 
+          `La página se desbloqueará en:<br> ${days} días, ${hours} horas, ${minutes} minutos, ${seconds} segundos`;
+      }
+    }
+
+    function startEmojiRain() {
+      setInterval(() => {
+        let emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerHTML = Math.random() > 0.5 ? "❤️" : "😊";
+        emoji.style.left = Math.random() * window.innerWidth + "px";
+        emoji.style.top = "-50px";
+        emoji.style.position = "absolute";
+        emoji.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(emoji);
+
+        setTimeout(() => emoji.remove(), 5000);
+      }, 200);
+    }
+
+    function goToSecondScreen() {
+      window.location.href = 'pantalla2.html'; // Redirige a pantalla2.html
+    }
+
+    function moveButton() {
+      let button = document.getElementById('noButton');
+
+      if (noClicks < 5) {
+        let randomX = Math.floor(Math.random() * 100 - 50);
+        let randomY = Math.floor(Math.random() * 100 - 50);
+        button.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        noClicks++;
+      } else {
+        button.innerText = "Piensalo bien"; // Cambia el texto después de moverse 5 veces
+        button.onclick = function() {
+          window.location.href = 'pantalla2.html'; // Redirige a pantalla2.html
+        };
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+    startEmojiRain(); 
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
