@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pantalla 3 - Emociones</title>
+  <style>
+    body {
+      background-color: #222244;
+      color: white;
+      background-image: url('img/no.jpg');
+      font-family: Arial, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .btn-triste { background-color: #4444ff; color: white; }
+    .btn-normal { background-color: #ffcc00; color: black; }
+    .btn-feliz { background-color: #ff66b2; color: white; }
+    .btn-prom { background-color: #115d8a; color: white; }
+
+    /* Estilo de la ventana emergente */
+    .popup {
+  display: none;
+  position: fixed; /* Mantener la ventana emergente fija */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centrado absoluto en la pantalla */
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px pink;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  z-index: 10; /* Asegura que esté por encima de otros elementos */
+  overflow-y: auto; /* Permite el desplazamiento dentro de la ventana si el contenido es muy largo */
+}
+
+    .popup a {
+      color: #ff0080;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .popup button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #222244;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* Lluvia de emojis */
+    .emoji {
+      position: absolute;
+      font-size: 2em;
+      animation: fall 4s linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>PARA TU ESTADO DE ANIMO Y TAMBIEN LO QUE SIENTO</h1>
+
+  <button class="btn btn-triste" onclick="showPopup('triste')">Triste</button>
+  <button class="btn btn-normal" onclick="showPopup('normal')">Normal</button>
+  <button class="btn btn-feliz" onclick="showPopup('feliz')">Feliz</button>
+  <button class="btn btn-prom" onclick="showPopup('prom')">PROMESA DE VIDA</button>
+
+  <!-- Ventanas emergentes -->
+  <div id="popup-triste" class="popup">
+    <p>Esta canción 1 😢</p>
+    <a href="https://youtu.be/AHNSAwddOck?si=wMEYZf4QnH9Q320a" target="_blank">Escuchar en YouTube</a><br>
+    <p>Esta canción 2 😢</p>
+    <a href="https://youtu.be/w0jeK9yRStE?si=c_uPvYghcE0LsE0I" target="_blank">Escuchar en YouTube</a><br>
+    <p>Esta canción 3 😢</p>
+    <a href="https://youtu.be/R0pwwqnGE9A?si=0VdKHymfvQm-PR2z" target="_blank">Escuchar en YouTube</a><br>
+    <button onclick="closePopup('triste')">Cerrar</button>
+  </div>
+
+  <div id="popup-normal" class="popup">
+    <p>Esta canción 1 😢</p>
+    <a href="https://youtu.be/me9Kx1T8a3U?si=mfeDm19kf4T42taa" target="_blank">Escuchar en YouTube</a><br>
+    <p>Esta canción 2 😢</p>
+    <a href="https://youtu.be/3-p1kbftdc8?si=mpJb-wcej8M0uFrw" target="_blank">Escuchar en YouTube</a><br>
+    <p>Esta canción 3 😢</p>
+    <a href="https://youtu.be/I8qUYSJ5CPg?si=nVXMIDLOVD5_c_OS" target="_blank">Escuchar en YouTube</a><br>
+    <button onclick="closePopup('normal')">Cerrar</button>
+  </div>
+
+  <div id="popup-feliz" class="popup">
+    <p>Esta canción 1 😢</p>
+    <a href="https://youtu.be/XMDSMokWWlo?si=V_N33orEjbx26I5V" target="_blank">Escuchar en YouTube</a><br>
+    <p>Esta canción 2 😢</p>
+    <a href="https://youtu.be/5Uo511SDKaI?si=SDlLR3ZXuhNayxXE" target="_blank">Escuchar en YouTube</a><br>
+    <p>Esta canción 3 😢</p>
+    <a href="https://youtu.be/7Ikc8PodPKo?si=XfWIdkHclFB71iXB" target="_blank">Escuchar en YouTube</a><br>
+    <button onclick="closePopup('feliz')">Cerrar</button>
+  </div>
+  <div id="popup-prom" class="popup">
+    <p>no importa donde estes o lo que hagas, o con quien estes yo siempre y honestamente te amare verdadera y completamente GRACIAS ALE DE TU AMIGO ALAIN😢</p>
+    <button onclick="closePopup('prom')">Cerrar</button>
+  </div>
+  <script>
+    function showPopup(type) {
+      document.getElementById(`popup-${type}`).style.display = "block";
+    }
+
+    function closePopup(type) {
+      document.getElementById(`popup-${type}`).style.display = "none";
+    }
+
+    function startEmojiRain() {
+      setInterval(() => {
+        let emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerHTML = "😊";
+        emoji.style.left = Math.random() * window.innerWidth + "px";
+        emoji.style.top = "-50px";
+        emoji.style.position = "absolute";
+        emoji.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(emoji);
+
+        setTimeout(() => emoji.remove(), 5000);
+      }, 200);
+    }
+
+    startEmojiRain();
+  </script>
+
+</body>
+</html>
+
