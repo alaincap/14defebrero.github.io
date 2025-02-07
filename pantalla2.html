@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pantalla 2 - San Valentín</title>
+  <style>
+    body {
+      background-color: #1a1a2e;
+      color: white;
+      background-image: url('img/no.jpg');
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    #textBox {
+      background: rgba(255, 105, 180, 0.8);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px pink;
+      font-size: 1.3em;
+      max-width: 80%;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    .visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    button {
+      background-color: #ff6699;
+      color: white;
+      font-size: 1.2em;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+      margin: 10px;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    .emoji-button {
+      font-size: 2em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 105, 180, 0.9);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px pink;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .modal button {
+      margin-top: 10px;
+      background: white;
+      color: black;
+    }
+
+    /* Emoji gigante */
+    .emoji-gigante {
+      font-size: 120px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      transition: opacity 3s ease-in-out;
+      z-index: 100;
+    }
+
+    .hide {
+      opacity: 0;
+    }
+
+    /* Lluvia de emojis */
+    .emoji {
+      position: absolute;
+      font-size: 2em;
+      animation: fall 4s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Emoji Gigante al entrar -->
+  <div id="emoji" class="emoji-gigante">😊</div>
+
+  <h1>Bienvenida ALEJANDRA</h1>
+
+  <div id="textBox" class="visible">FELICIDADES ALE</div>
+  <button onclick="nextText()">Siguiente</button>
+
+  <!-- Botones de emojis -->
+  <button class="emoji-button" onclick="openModal('carta')">📜</button>
+  <button class="emoji-button" onclick="openModal('pareja')">👫</button>
+
+  <!-- Modales (ventanas emergentes) -->
+  <div id="modal-carta" class="modal">
+    <p>ESTA ES UNA CARTA LARGA ESO ESPERO ALE CUANDO SIENTAS QUE ESTAS ABURRIDA HAS ALGO QUE TE DISTRAIGA CAMINAR TOMAR AIRE FRESCO VAMOS QUE SE PUEDE LOS MESES PASAN RAPIDO 💌</p>
+    <button onclick="closeModal('carta')">Cerrar</button>
+  </div>
+
+  <div id="modal-pareja" class="modal">
+    <p>JAJAJA SABES ALE SE GANO A UN AMIGO FIEL CUANDO REGRESE TENDRA A ALGUIN QUE NO LE DEJARA SOLA Y LE ACOMPAÑARA A SUS AVENTURAS Y VIAJES EL QUE LE DIRA YA VAMOS DE BOLAS JAJAJAJAJA ASI QUE NO SE OLVIDE DE ESCRIBIRME CUANDO QUIERA ESTOY PARA TI 🤔</p>
+    <button onclick="closeModal('pareja')">Cerrar</button>
+  </div>
+
+  <audio autoplay loop>
+    <source src="wwd.mp3juice.blog - Winter Aid - The Wisp Sings  Español.mp3" type="audio/mp3">
+  </audio>
+  <button class="btn-next" onclick="goToScreen3()">Ir a la Pantalla 3</button>
+
+  <script>
+    function goToScreen3() {
+      window.location.href = "pantalla3.html";
+    } 
+  </script>
+
+  <script>
+    let textIndex = 0;
+    const texts = [
+      "HOLA ALE, bueno esto es un regalo para ti, por lo menos de mi parte es dia de san valentin feliz dia y queiro decirte que le este pasanado bien donde este y que la extrañamos bueno yo la extraño mas ",
+      "te quieria pedir perdon antes que te ubiras ido fue al dia siguente ggg pero intentare a que me digas para ir a darle un abrazo y si no se pudo pues seguire intentato hasta que me diga si ven o tu vengas aca",
+      "ale le dire que lo esta haciendo bien mas a delante vera que sera alguien mas importante y yo estare viendo eso aunque estemos o no yo ya le considero como mi hogar",
+      "no olvide que tambien ahi felicidad disfrute no todo es trabajo tiene que vivir la vida no solo trabajar se va cuidar bien se alimenta y tambien estar con energias heeee"
+    ];
+
+    function nextText() {
+      textIndex++;
+      if (textIndex < texts.length) {
+        document.getElementById("textBox").innerText = texts[textIndex];
+      }
+    }
+
+    function openModal(type) {
+      document.getElementById(`modal-${type}`).style.display = "block";
+    }
+
+    function closeModal(type) {
+      document.getElementById(`modal-${type}`).style.display = "none";
+    }
+
+    function startEmojiRain() {
+      setInterval(() => {
+        let emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerHTML = "😊";
+        emoji.style.left = Math.random() * window.innerWidth + "px";
+        emoji.style.top = "-50px";
+        emoji.style.position = "absolute";
+        emoji.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(emoji);
+
+        setTimeout(() => emoji.remove(), 5000);
+      }, 200);
+    }
+
+    // Hacer que el emoji gigante desaparezca después de 3 segundos
+    setTimeout(() => {
+      document.getElementById("emoji").classList.add("hide");
+    }, 3000);
+
+    startEmojiRain();
+  </script>
+
+</body>
+</html>
