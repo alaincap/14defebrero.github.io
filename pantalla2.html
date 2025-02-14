@@ -132,7 +132,10 @@
   <h1>Bienvenida ALEJANDRA</h1>
 
   <div id="textBox" class="visible">FELICIDADES ALE</div>
-  <button onclick="nextText()">Siguiente</button>
+  <div class="buttons-container">
+    <button onclick="prevText()">Anterior</button>
+    <button onclick="nextText()">Siguiente</button>
+  </div>
 
   <!-- Botones de emojis -->
   <button class="emoji-button" onclick="openModal('carta')">📜</button>
@@ -140,12 +143,12 @@
 
   <!-- Modales (ventanas emergentes) -->
   <div id="modal-carta" class="modal">
-    <p>ESTA ES UNA CARTA LARGA ESO ESPERO ALE LA VIDA PASA RAPIDO YO SIENTO QUE NO LA PODRE VIVIR A LO MAXIMO PORQUE NO ESTAS AQUI MAS ADELANTE NOSE QUE SE VENDRA TALVEZ NE OLVIDES O ESTES CON ALGUIEN MAS PER OYO SI ESOTY SEGURO DE ALGO QUE SIEMPRE TE VOY AMAR NO IMPORTA SI ESTARE SOLO PER OSABRE QUE INTENTE Y QUE MI AMOR FUE SINCERO Y DURADERO CONTIGO AHORA MISMOS LA EXTRAÑO HACIENDO ESTO Y NO ESTA AQUI PERO ME ALEGRA QUE ESTE EN EL LUGAR QUE DEBE ESTAR COMETI ERRORES Y UNO DE ELLOS FUE NO ESTAR AHI CONTIGO COMO QUEIRAS QUE ESTE TALVEZ UBIERA PASADO LO MISMO PER OLA DIFERENCIA SERIA QUE TE HUBIERA ACOMPAÑO HASTA DONDE ESTES PERO DEBO VIVIR CON ESO QUE NO ES ASI Y A QUE SEGUIR ADELANTE COMO PERSONAS 💌</p>
+    <p>ESTA ES UNA CARTA LARGA ESO ESPERO ALE LA VIDA PASA RAPIDO YO SIENTO QUE NO LA PODRE VIVIR A LO MAXIMO PORQUE NO ESTAS AQUI MAS ADELANTE NOSE QUE SE VENDRA TALVEZ ME OLVIDES O ESTES CON ALGUIEN MAS PERO YO SI ESTOY SEGURO DE ALGO QUE SIEMPRE TE VOY AMAR NO IMPORTA SI ESTARE SOLO PERO SABRE QUE INTENTE Y QUE MI AMOR FUE SINCERO Y DURADERO CONTIGO AHORA MISMOS LA EXTRAÑO HACIENDO ESTO Y NO ESTA AQUI PERO ME ALEGRA QUE ESTE EN EL LUGAR QUE DEBE ESTAR PARA SU CRECIMIENTO Y TAMBIEN PARA SU DESARROLO QUE ORGULLO PARA MI  COMETI ERRORES Y UNO DE ELLOS FUE NO ESTAR AHI CONTIGO COMO QUERIAS QUE ESTE TALVEZ UBIERA PASADO LO MISMO PERO LA DIFERENCIA SERIA QUE TE HUBIERA ACOMPAÑO HASTA DONDE ESTES PERO DEBO VIVIR CON ESO QUE NO ES ASI Y A QUE SEGUIR ADELANTE COMO PERSONAS 💌</p>
     <button onclick="closeModal('carta')">Cerrar</button>
   </div>
 
   <div id="modal-pareja" class="modal">
-    <p>JAJAJA ALE SI NO ESTA CONMIGO IGUAL ESTARE AHI PORQUE SOY ALGUIEN QUE CUMPLE SUS PALABRAS AUNQUE NO SEANA IMPORTANTES  🤔</p>
+    <p>JAJAJA ALE SI NO ESTA CONMIGO IGUAL ESTARE AHI PORQUE SOY ALGUIEN QUE CUMPLE SUS PALABRAS AUNQUE NO SEA NA IMPORTANTES JAJAAJ ESPERO QUE ALGUN DIA SE ENAMORE DE MI OTRA VEZ COMO DICEN LAS PAREJAS PASAN POR MUCHAS COSAS NO SIEMPRE ES FELICIADA TAMBIEN SON RETOS DE SUPERAR E INTENTAR SEGUIR Y YA SABER SOLUCIONAR LOS PROBLEMAS  🤔</p>
     <button onclick="closeModal('pareja')">Cerrar</button>
   </div>
 
@@ -169,10 +172,21 @@
       "no olvide que tambien ahi felicidad disfrute no todo es trabajo tiene que vivir la vida no solo trabajar se va cuidar bien se alimenta y tambien estar con energias heeee"
     ];
 
+     function updateText() {
+      document.getElementById("textBox").innerText = texts[textIndex];
+    }
+
     function nextText() {
-      textIndex++;
-      if (textIndex < texts.length) {
-        document.getElementById("textBox").innerText = texts[textIndex];
+      if (textIndex < texts.length - 1) {
+        textIndex++;
+        updateText();
+      }
+    }
+
+    function prevText() {
+      if (textIndex > 0) {
+        textIndex--;
+        updateText();
       }
     }
 
